@@ -1,0 +1,432 @@
+close all
+warning off
+%######################################################
+low_contrast_image1= imread('low contrast.png'); 
+medium_contrast_image1= imread('medium contrast.png'); 
+high_contrast_image1= imread('high contrast.png'); 
+
+low_contrast_image= rgb2gray(low_contrast_image1);
+medium_contrast_image= rgb2gray(low_contrast_image1);
+high_contrast_image= rgb2gray(low_contrast_image1);
+
+
+
+canny_edge_detection_high_contrast= edge(high_contrast_image, 'canny');
+canny_edge_detection_medium_contrast=edge(medium_contrast_image, 'canny');
+canny_edge_detection_low_contrast=edge(low_contrast_image, 'canny');
+
+Laplacian_edge_detection_high_contrast= edge(high_contrast_image, 'log');
+Laplacian_edge_detection_medium_contrast= edge(medium_contrast_image, 'log');
+Laplacian_edge_detection_low_contrast= edge(low_contrast_image, 'log');
+
+sobel_edge_detection_high_contrast= edge(high_contrast_image, 'sobel');
+sobel_edge_detection_medium_contrast=edge(medium_contrast_image, 'sobel');
+sobel_edge_detection_low_contrast= edge(low_contrast_image, 'sobel');
+
+prewitt_edge_detection_high_contrast= edge(high_contrast_image, 'prewitt');
+prewitt_edge_detection_medium_contrast=edge(medium_contrast_image, 'prewitt');
+prewitt_edge_detection_low_contrast=edge(low_contrast_image, 'prewitt');
+
+figure;
+subplot(1,3,1);
+imshow(sobel_edge_detection_high_contrast);
+title('sobel_edge_detection_high_contrast');
+
+subplot(1,3,2);
+imshow(sobel_edge_detection_medium_contrast);
+title('sobel_edge_detection_medium_contrast');
+
+subplot(1,3,3);
+imshow(sobel_edge_detection_low_contrast);
+title('sobel_edge_detection_low_contrast');
+
+
+figure;
+subplot(1,3,1);
+imshow(Laplacian_edge_detection_high_contrast);
+title('Laplacian_edge_detection_high_contrast');
+
+subplot(1,3,2);
+imshow(Laplacian_edge_detection_medium_contrast);
+title('Laplacian_edge_detection_medium_contrast');
+
+subplot(1,3,3);
+imshow(Laplacian_edge_detection_low_contrast);
+title('Laplacian_edge_detection_low_contrast');
+
+figure;
+subplot(1,3,1);
+imshow(canny_edge_detection_high_contrast);
+title('canny_edge_detection_high_contrast');
+
+subplot(1,3,2);
+imshow(canny_edge_detection_medium_contrast);
+title('canny_edge_detection_medium_contrast');
+
+subplot(1,3,3);
+imshow(canny_edge_detection_low_contrast);
+title('canny_edge_detection_low_contrast');
+
+figure;
+subplot(1,3,1);
+imshow(prewitt_edge_detection_high_contrast);
+title('prewitt_edge_detection_high_contrast');
+
+subplot(1,3,2);
+imshow(prewitt_edge_detection_medium_contrast);
+title('prewitt_edge_detection_medium_contrast');
+
+subplot(1,3,3);
+imshow(prewitt_edge_detection_low_contrast);
+title('prewitt_edge_detection_low_contrast');
+
+low_contrast_image=double(low_contrast_image(:,:,1));
+medium_contrast_image= double(medium_contrast_image(:,:,1));
+high_contrast_image= double(high_contrast_image(:,:,1));
+
+canny_edge_detection_high_contrast= double(canny_edge_detection_high_contrast(:,:,1));
+prewitt_edge_detection_high_contrast= double(prewitt_edge_detection_high_contrast(:,:,1));
+sobel_edge_detection_high_contrast= double(sobel_edge_detection_high_contrast(:,:,1));
+Laplacian_edge_detection_high_contrast= double(Laplacian_edge_detection_high_contrast(:,:,1));
+
+
+
+
+canny_edge_detection_medium_contrast=double(canny_edge_detection_medium_contrast(:,:,1));
+canny_edge_detection_low_contrast=double(canny_edge_detection_low_contrast(:,:,1));
+
+Laplacian_edge_detection_medium_contrast=double(Laplacian_edge_detection_medium_contrast(:,:,1));
+Laplacian_edge_detection_low_contrast=double(Laplacian_edge_detection_low_contrast(:,:,1));
+
+sobel_edge_detection_medium_contrast=double(sobel_edge_detection_medium_contrast(:,:,1));
+sobel_edge_detection_low_contrast=double(sobel_edge_detection_low_contrast(:,:,1));
+
+prewitt_edge_detection_medium_contrast=double(prewitt_edge_detection_medium_contrast(:,:,1));
+prewitt_edge_detection_low_contrast=double(prewitt_edge_detection_low_contrast(:,:,1));
+
+
+
+error_canny_low_contrast = mse(canny_edge_detection_medium_contrast,canny_edge_detection_high_contrast)
+error_canny_medium_contrast = mse(canny_edge_detection_low_contrast, canny_edge_detection_high_contrast)
+
+error_Laplacian_low_contrast = mse(Laplacian_edge_detection_medium_contrast, Laplacian_edge_detection_high_contrast)
+error_Laplacian_medium_contrast = mse(Laplacian_edge_detection_low_contrast, Laplacian_edge_detection_high_contrast)
+
+error_sobel_low_contrast = mse(sobel_edge_detection_medium_contrast, sobel_edge_detection_high_contrast)
+error_sobel_medium_contrast = mse(sobel_edge_detection_low_contrast, sobel_edge_detection_high_contrast)
+
+error_prewitt_low_contrast = mse(prewitt_edge_detection_medium_contrast, prewitt_edge_detection_high_contrast)
+error_prewitt_medium_contrast = mse(prewitt_edge_detection_low_contrast, prewitt_edge_detection_high_contrast)
+
+ssim_canny_low_contrast = ssim(canny_edge_detection_medium_contrast,canny_edge_detection_high_contrast)
+ssim_canny_medium_contrast = ssim(canny_edge_detection_low_contrast, canny_edge_detection_high_contrast)
+
+ssim_Laplacian_low_contrast = ssim(Laplacian_edge_detection_medium_contrast, Laplacian_edge_detection_high_contrast)
+ssim_Laplacian_medium_contrast = ssim(Laplacian_edge_detection_low_contrast, Laplacian_edge_detection_high_contrast)
+
+ssim_sobel_low_contrast = ssim(sobel_edge_detection_medium_contrast, sobel_edge_detection_high_contrast)
+ssim_sobel_medium_contrast = ssim(sobel_edge_detection_low_contrast, sobel_edge_detection_high_contrast)
+
+ssim_prewitt_low_contrast = ssim(prewitt_edge_detection_medium_contrast, prewitt_edge_detection_high_contrast)
+ssim_prewitt_medium_contrast = ssim(prewitt_edge_detection_low_contrast, prewitt_edge_detection_high_contrast)
+
+
+[peaksnr, snr] = psnr(canny_edge_detection_medium_contrast, canny_edge_detection_high_contrast);
+fprintf('\nPSNR value of canny image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of canny image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(canny_edge_detection_low_contrast, canny_edge_detection_high_contrast);
+fprintf('\nPSNR value of canny image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of canny image with high noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(sobel_edge_detection_no_noise, sobel_edge_detection_moderate_noise);
+fprintf('\nPSNR value of Laplacian image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Laplacian image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(Laplacian_edge_detection_no_noise, Laplacian_edge_detection_high_noise);
+fprintf('\nPSNR value of Laplacian image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Laplacian image with high noise is %0.5f\n', snr);
+
+
+[peaksnr, snr] = psnr(sobel_edge_detection_no_noise, sobel_edge_detection_moderate_noise);
+fprintf('\nPSNR value of sobel image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of sobel image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr( sobel_edge_detection_no_noise, sobel_edge_detection_high_noise);
+fprintf('\nPSNR value of sobel image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of sobel image with high noise is %0.5f\n', snr);
+
+[peaksnr, snr]= psnr( prewitt_edge_detection_no_noise, prewitt_edge_detection_moderate_noise);
+fprintf('\nPSNR value of prewitt image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Prewitt image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(prewitt_edge_detection_no_noise, prewitt_edge_detection_high_noise);
+fprintf('\nPSNR value of prewitt image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of prewitt image with high noise is %0.5f\n', snr);
+
+
+
+
+%image1_binary=double(image1_binary(:,:,1));
+
+image1=imread('flower image.png');
+image1_binary=rgb2gray(image1);
+figure;
+imshow(image1);
+title('Original Image');
+
+%canny edge detection
+canny_edge_detection= edge(image1_binary, 'canny');   
+figure;
+imshow(canny_edge_detection);
+title('Canny Edge Segmented Image');
+
+% sobel edge detection
+sobel_edge_detection= edge(image1_binary, 'sobel');
+figure;
+imshow(sobel_edge_detection);
+title('Sobel Edge Detection');
+
+%prewitt edge detection
+prewitt_edge_detection= edge(image1_binary, 'prewitt');
+figure;
+imshow(prewitt_edge_detection);
+title('Prewitt Edge Detection');
+
+%Robert's operator in Edge detection
+Roberts_edge_detection= edge(image1_binary, 'Roberts');
+figure;
+imshow(Roberts_edge_detection);
+title('Roberts Operator In Edge Detection'); 
+
+%Using Laplacian Of Gaussian in edge detection
+Laplacian_Edge_Detection= edge(image1_binary, 'log');
+figure;
+imshow(Laplacian_Edge_Detection);
+title('Laplacian Of Gaussian in Edge Detection');
+
+%Using Zerocross in edge detection
+Zerocross_edge_detection= edge(image1_binary, 'zerocross');
+figure;
+imshow(Zerocross_edge_detection);
+title('Zerocrossing In Edge Detection');
+
+
+%testing noise effect on image segmentation
+%image2= imread('image2.png');
+%image2_binary= rgb2gray(image2);
+figure;
+subplot(1,3,1);
+imshow(image1_binary);
+title('Image With No Noise');
+
+%adding moderate noise to the image
+image_with_moderate_noise= imnoise(image1_binary,'Gaussian', 0.01);
+subplot(1,3,2);
+imshow(image_with_moderate_noise);
+title('Image With Moderate Noise');
+
+%adding high noise to the image
+image_with_high_noise= imnoise(image1_binary,'Gaussian', 0.02);
+subplot(1,3,3);
+imshow(image_with_high_noise);
+title('Image With high Noise');
+
+[peaksnr, snr] = psnr(image_with_moderate_noise, image1_binary);
+fprintf('\nPSNR value of image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(image_with_high_noise, image1_binary);
+fprintf('\nPSNR value of image with high noise%0.5f',peaksnr);
+fprintf('\nSNR value of image with high noise is %0.5f\n', snr);
+
+%#######################################################
+%testing different edge detection methods with noise
+ 
+%canny edge detection 
+canny_edge_detection_no_noise= edge(image1_binary, 'canny');
+canny_edge_detection_moderate_noise= edge(image_with_moderate_noise, 'canny');
+canny_edge_detection_high_noise= edge(image_with_high_noise, 'canny');
+
+figure;
+subplot(1,3,1);
+imshow(canny_edge_detection_no_noise);
+title('Canny with no noise');
+
+
+subplot(1,3,2);
+imshow(canny_edge_detection_moderate_noise);
+title('Canny with moderate noise');
+
+subplot(1,3,3);
+imshow(canny_edge_detection_high_noise);
+title('Canny with high noise');
+
+%#######################################################
+%Laplacian of Guassian edge detection with noise
+Laplacian_edge_detection_no_noise= edge(image1_binary, 'log');
+Laplacian_edge_detection_moderate_noise= edge(image_with_moderate_noise, 'log');
+Laplacian_edge_detection_high_noise= edge(image_with_high_noise, 'log');
+
+figure;
+subplot(1,3,1);
+imshow(Laplacian_edge_detection_no_noise);
+title('Laplacian with no noise');
+
+
+subplot(1,3,2);
+imshow(Laplacian_edge_detection_moderate_noise);
+title('Laplacian with moderate noise');
+
+subplot(1,3,3);
+imshow(Laplacian_edge_detection_high_noise);
+title('Laplacian with high noise');
+
+%#######################################################
+%sobel edge detection with noise
+sobel_edge_detection_no_noise= edge(image1_binary, 'sobel');
+sobel_edge_detection_moderate_noise= edge(image_with_moderate_noise, 'sobel');
+sobel_edge_detection_high_noise= edge(image_with_high_noise, 'sobel');
+
+figure;
+subplot(1,3,1);
+imshow(sobel_edge_detection_no_noise);
+title('sobel with no noise');
+
+
+subplot(1,3,2);
+imshow(sobel_edge_detection_moderate_noise);
+title('sobel with moderate noise');
+
+subplot(1,3,3);
+imshow(sobel_edge_detection_high_noise);
+title('sobel with high noise');
+
+%#######################################################
+%prewitt edge detection with noise
+prewitt_edge_detection_no_noise= edge(image1_binary, 'prewitt');
+prewitt_edge_detection_moderate_noise= edge(image_with_moderate_noise, 'prewitt');
+prewitt_edge_detection_high_noise= edge(image_with_high_noise, 'prewitt');
+
+figure;
+subplot(1,3,1);
+imshow(prewitt_edge_detection_no_noise);
+title('prewitt with no noise');
+
+
+subplot(1,3,2);
+imshow(prewitt_edge_detection_moderate_noise);
+title('prewitt with moderate noise');
+
+subplot(1,3,3);
+imshow(prewitt_edge_detection_high_noise);
+title('prewitt with high noise');
+
+%#######################################################
+%Roberts edge detection with noise
+Roberts_edge_detection_no_noise= edge(image1_binary, 'Roberts');
+Roberts_edge_detection_moderate_noise= edge(image_with_moderate_noise, 'Roberts');
+Roberts_edge_detection_high_noise= edge(image_with_high_noise, 'Roberts');
+
+figure;
+subplot(1,3,1);
+imshow(Roberts_edge_detection_no_noise);
+title('Roberts with no noise');
+
+subplot(1,3,2);
+imshow(Roberts_edge_detection_moderate_noise);
+title('Roberts with moderate noise');
+
+subplot(1,3,3);
+imshow(Roberts_edge_detection_high_noise);
+title('Roberts with high noise');
+
+
+%#######################################################%
+%calculating PSNR and SNR for segmented images with different noises with
+%respect to original image
+
+image1_binary=double(image1_binary(:,:,1));
+image_with_moderate_noise= double(image_with_moderate_noise(:,:,1));
+image_with_high_noise= double(image_with_high_noise(:,:,1));
+
+canny_edge_detection_no_noise= double(canny_edge_detection_no_noise(:,:,1));
+sobel_edge_detection_no_noise= double(sobel_edge_detection_no_noise(:,:,1));
+Laplacian_edge_detection_no_noise= double(Laplacian_edge_detection_no_noise(:,:,1));
+Roberts_edge_detection_no_noise= double(Roberts_edge_detection_no_noise(:,:,1));
+prewitt_edge_detection_no_noise= double(prewitt_edge_detection_no_noise(:,:,1));
+
+
+canny_edge_detection_high_noise=double(canny_edge_detection_high_noise(:,:,1));
+canny_edge_detection_moderate_noise=double(canny_edge_detection_moderate_noise(:,:,1));
+
+Laplacian_edge_detection_high_noise=double(Laplacian_edge_detection_high_noise(:,:,1));
+Laplacian_edge_detection_moderate_noise=double(Laplacian_edge_detection_moderate_noise(:,:,1));
+
+sobel_edge_detection_high_noise=double(sobel_edge_detection_high_noise(:,:,1));
+sobel_edge_detection_moderate_noise=double(sobel_edge_detection_moderate_noise(:,:,1));
+
+Roberts_edge_detection_high_noise=double(Roberts_edge_detection_high_noise(:,:,1));
+Roberts_edge_detection_moderate_noise=double(Roberts_edge_detection_moderate_noise(:,:,1));
+
+prewitt_edge_detection_high_noise=double(prewitt_edge_detection_high_noise(:,:,1));
+prewitt_edge_detection_moderate_noise=double(prewitt_edge_detection_moderate_noise(:,:,1));
+
+%calculating mse and ssim value for each method, with both moderate and
+%high noise segmented images
+error_canny_moderate_noise = mse(canny_edge_detection_moderate_noise,canny_edge_detection_no_noise)
+error_canny_high_noise = mse(canny_edge_detection_high_noise, canny_edge_detection_no_noise)
+
+error_Laplacian_moderate_noise = mse(Laplacian_edge_detection_moderate_noise, Laplacian_edge_detection_no_noise)
+error_Laplacian_high_noise = mse(Laplacian_edge_detection_high_noise, Laplacian_edge_detection_no_noise)
+
+error_sobel_moderate_noise = mse(sobel_edge_detection_moderate_noise, sobel_edge_detection_no_noise)
+error_sobel_high_noise = mse(sobel_edge_detection_high_noise, sobel_edge_detection_no_noise)
+
+error_prewitt_moderate_noise = mse(prewitt_edge_detection_moderate_noise, prewitt_edge_detection_no_noise)
+error_prewitt_high_noise = mse(prewitt_edge_detection_high_noise, prewitt_edge_detection_no_noise)
+
+ssimval_canny_moderate_noise = ssim(canny_edge_detection_moderate_noise, canny_edge_detection_no_noise)
+ssimval_canny_high_noise = ssim(canny_edge_detection_high_noise, canny_edge_detection_no_noise)
+
+ssimval_Laplacian_moderate_noise = ssim(Laplacian_edge_detection_moderate_noise, Laplacian_edge_detection_no_noise)
+ssimval_Laplacian_high_noise = ssim(Laplacian_edge_detection_high_noise, Laplacian_edge_detection_no_noise)
+
+ssimval_sobel_moderate_noise = ssim(sobel_edge_detection_moderate_noise, sobel_edge_detection_no_noise)
+ssimval_sobel_high_noise = ssim(sobel_edge_detection_high_noise, sobel_edge_detection_no_noise)
+
+ssimval_prewitt_moderate_noise = ssim(prewitt_edge_detection_moderate_noise, prewitt_edge_detection_no_noise)
+ssimval_prewitt_high_noise=ssim(prewitt_edge_detection_high_noise, prewitt_edge_detection_no_noise)
+
+[peaksnr, snr] = psnr(canny_edge_detection_no_noise, canny_edge_detection_moderate_noise);
+fprintf('\nPSNR value of canny image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of canny image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(canny_edge_detection_no_noise, canny_edge_detection_high_noise);
+fprintf('\nPSNR value of canny image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of canny image with high noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr( Laplacian_edge_detection_no_noise, Laplacian_edge_detection_moderate_noise);
+fprintf('\nPSNR value of Laplacian image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Laplacian image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(Laplacian_edge_detection_no_noise, Laplacian_edge_detection_high_noise);
+fprintf('\nPSNR value of Laplacian image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Laplacian image with high noise is %0.5f\n', snr);
+
+
+[peaksnr, snr] = psnr(sobel_edge_detection_no_noise, sobel_edge_detection_moderate_noise);
+fprintf('\nPSNR value of sobel image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of sobel image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr( sobel_edge_detection_no_noise, sobel_edge_detection_high_noise);
+fprintf('\nPSNR value of sobel image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of sobel image with high noise is %0.5f\n', snr);
+
+[peaksnr, snr]= psnr( prewitt_edge_detection_no_noise, prewitt_edge_detection_moderate_noise);
+fprintf('\nPSNR value of prewitt image with moderate noise is %0.5f',peaksnr);
+fprintf('\nSNR value of Prewitt image with moderate noise is %0.5f\n', snr);
+
+[peaksnr, snr] = psnr(prewitt_edge_detection_no_noise, prewitt_edge_detection_high_noise);
+fprintf('\nPSNR value of prewitt image with high noise is %0.5f',peaksnr);
+fprintf('\nSNR value of prewitt image with high noise is %0.5f\n', snr);
